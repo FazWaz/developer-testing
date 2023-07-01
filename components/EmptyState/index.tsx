@@ -1,0 +1,1 @@
+export { EmptyProperties } from './EmptyProperties'
