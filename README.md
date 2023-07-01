@@ -69,20 +69,19 @@ password: password
 * Everytime a search has done, the app stores it. [Admin can view the search histories](https://mofazwaz-api-d36ad5e9c753.herokuapp.com/admin/search_histories)
 
 ### Viewing a Property
-* All using server compoennts. When a property is cliekd it views it as a modal. Upon refresh it's a page of its own.
+* All using server compoennts. When a property is clicked it views it as a modal. Upon refresh it's a page of its own.
 * Every view it mutates to API adding an [interacted property](https://mofazwaz-api-d36ad5e9c753.herokuapp.com/admin/interacted_properties)  that helps the  recommendation
 * [Admin can view all interacted properties](https://mofazwaz-api-d36ad5e9c753.herokuapp.com/admin/interacted_properties)
 
 ## Recommendation
 * App can recommend properties.
 * Frontend is using server component convention.
-* Backend is its own logic for recommendations:
+* Backend has its own logic for recommendations:
   *  Get user last 5 history
   * Get last 5 interacted properties
   * Query 5 suggested properties based on user last 5 histories
-  * Combine the interacted + suggested properties and iterate to
-  * rank them which as the more relevance based on the user last 5 history
-  * Combine the interacted + suggested properties and sort then by which among them has more relevance based on the user_searc_history value
-  * Sort the properties by relevance in descending order
+  * Combine the interacted + suggested properties 
+  * Rank them which as the more relevance based on the user last 5 history
+  * Sort the ranked properties by relevance in descending order (Highest score first to lowest)
   * [See API logic here](https://github.com/FazWaz/developer-testing/blob/moseslucas/mofazwaz_rails_api/app/graphql/types/query_type.rb#L43)
 
