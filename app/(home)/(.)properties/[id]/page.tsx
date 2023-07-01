@@ -13,11 +13,12 @@ export default async function asyncPage({ params }: Props) {
   const query = FIND_PROPERTY
   const mutation = INTERACTED_PROPERTY
   const variables = { id }
-  const { data, loading } = await getClient().query({ query, variables })
+  const context = { fetchOptions: { next: { revalidate: 5 } } }
+  const { data, loading } = await getClient().query({ query, variables, context })
 
   if (loading) return null
 
-  await getClient().mutate({ mutation, variables })
+  await getClient().mutate({ mutation, variables, context })
 
   return (
     <Modal>

@@ -11,7 +11,8 @@ type Props = {
 export default async function Search({ searchParams }: Props) {
   const query = SEARCH_PROPERTY
   const variables = { query: searchParams?.query }
-  const { data, loading } = await getClient().query({ query, variables })
+  const context = { fetchOptions: { next: { revalidate: 5 } } }
+  const { data, loading } = await getClient().query({ query, variables, context })
 
   /* Won't really be noticed since server components are really reallyfast */
   if (loading) {

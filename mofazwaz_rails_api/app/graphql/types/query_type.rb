@@ -26,7 +26,7 @@ module Types
       argument :limit, Integer, required: false, default_value: 5
     end
     def search_properties(query:, limit:)
-      search = { name_or_title_or_description_or_listing_type_or_tags_cont_any: query.split(" ") }
+      search = { name_or_title_or_description_or_listing_type_or_tags_cont_any: query.downcase.split(' ') }
       q = Property.ransack(search).result
       q.limit(limit)
       SearchHistory.create(query:, user:)
@@ -45,7 +45,7 @@ module Types
       user_search_history = user.search_histories.order(created_at: :desc).limit(5).pluck(:query).uniq.join(' ')
 
       # Query 5 suggested properties based on user last 5 histories
-      suggested_properties = Property.ransack({name_or_title_or_description_or_listing_type_or_tags_cont_any: user_search_history.split(' ')}).result
+      suggested_properties = Property.ransack({name_or_title_or_description_or_listing_type_or_tags_cont_any: user_search_history.downcase.split(' ')}).result
 
       # Get last 5 interacted properties
       interacted_properties = Property.where(id: user.interacted_properties.pluck(:id)).order(created_at: :desc).limit(5)

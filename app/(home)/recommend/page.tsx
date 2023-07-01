@@ -7,7 +7,8 @@ import { RECOMMEND_PROPERTY } from '@/api/property'
 
 export default async function Recommend() {
   const query = RECOMMEND_PROPERTY
-  const { data, loading } = await getClient().query({ query })
+  const context = { fetchOptions: { next: { revalidate: 5 } } }
+  const { data, loading } = await getClient().query({ query, context })
 
   /* Won't really be noticed since server components are really reallyfast */
   if (loading) {

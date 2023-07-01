@@ -10,7 +10,8 @@ export default async function asyncPage({ params }: Props) {
   const { id } = params
   const query = FIND_PROPERTY
   const variables = { id }
-  const { data, loading } = await getClient().query({ query, variables })
+  const context = { fetchOptions: { next: { revalidate: 5 } } }
+  const { data, loading } = await getClient().query({ query, variables, context })
 
   if (loading) return null
 
