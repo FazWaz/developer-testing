@@ -1,39 +1,39 @@
-Create a real estate property search feature using Next.js, MySQL, and GraphQL. Provide a Docker Compose configuration for Next.js and instructions to generate fake data.
+## Overview
 
-**User Story:**  
+This project is a real estate property search feature built with Next.js, MySQL, and GraphQL. The application allows users to filter properties based on sale or rent, price range, number of bedrooms, and area. It is designed to handle a large number of properties (10,000, 100,000, and 1,000,000) to test query performance. The listing page includes features like project name, short title, price, bedroom count, area, short description, and an interactive image gallery that works on both PCs and mobile devices.
+[Developed by <strong>Soe Moe Oo</strong>]
 
-**As a Developer**, I want to build a search feature for real estate properties, allowing users to filter properties based on sale or rent, price range, number of bedrooms, and area. The search should handle a large number of fake properties (10,000, 100,000, and 1,000,000) to test query performance. Additionally, the listing page should display the project name, short title, price, bedroom count, area, short description, and an image gallery (with 5 images) that works with mouse interaction on PCs and swipe gestures on mobile devices. The page should achieve a score of 95 or higher on Google Insight.
+<hr>
 
-**Acceptance Criteria:**
+## Getting Started
 
-**Given** a user searches for properties,  
-**When** they select the filter type for sale or rent,  
-**Then** the search should display properties matching the selected type.  
+First, run the development server (for local):
 
-**Given** a user searches for properties,  
-**When** they specify the price range using the filter,  
-**Then** the search should display properties within the specified price range for both sale and rent.  
+```bash
+npm install
+npm run dev
+```
 
-**Given** a user searches for properties,  
-**When** they filter properties based on the number of bedrooms,  
-**Then** the search should display properties with the corresponding bedroom count.  
+### Run on Docker
 
-**Given** a user searches for properties,  
-**When** they filter properties based on the area,  
-**Then** the search should display properties within the specified area range.  
+**1. Build and Run**
 
-**Given** a user views the listing page,  
-**When** they interact with the image gallery on a PC (using a mouse),  
-**Then** they should be able to navigate between images.  
+```sh
+   docker-compose up -d
+```
 
-**Given** a user views the listing page,  
-**When** they interact with the image gallery on a mobile device (using swipe gestures),  
-**Then** they should be able to navigate between images.
+**2. Prisma Database Push**
 
-**Given** the listing page,  
-**When** tested with Google Insight,  
-**Then** the page should achieve a score of 95 or higher.  
+```sh
+    docker-compose run nextjs npx prisma db push
+```
 
-**Given** a large number of fake properties (10,000, 100,000, and 1,000,000),  
-**When** the search is performed,  
-**Then** the query performance should meet acceptable performance benchmarks.  
+**3. Fake Data Seeder (5000 records per seed)**
+
+```sh
+    docker-compose run nextjs npx prisma db seed
+```
+
+### Running the Project
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
