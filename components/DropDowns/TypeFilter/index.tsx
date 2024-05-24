@@ -10,10 +10,7 @@ const TypeDropdown: FC<TypeDropdown> = ({ label }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdown = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
-  const params = useMemo(
-    () => new URLSearchParams(searchParams?.toString()),
-    [searchParams]
-  );
+  const params = new URLSearchParams(searchParams?.toString());
   const [type, setType] = useState(params.get("type") || "");
 
   useEffect(() => {
@@ -41,7 +38,9 @@ const TypeDropdown: FC<TypeDropdown> = ({ label }) => {
       >
         <MenuIcon className="pr-1 w-[25px] h-[25px]" />
         <span className="text-slate-400 xs:text-sm whitespace-nowrap">
-          {type ? type : label || "Type"}
+          {type
+            ? type[0].toUpperCase() + type.toLocaleLowerCase().substring(1)
+            : label || "All"}
         </span>
       </div>
       <div

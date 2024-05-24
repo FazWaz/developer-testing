@@ -49,7 +49,7 @@ const PropertyTypeDropdown: FC<PropertyTypeDropdown> = ({ label }) => {
           {propertyType
             ? propertyType[0].toUpperCase() +
               propertyType.toLocaleLowerCase().substring(1)
-            : label || "Property"}
+            : label || "All"}
         </span>
       </div>
       <div
