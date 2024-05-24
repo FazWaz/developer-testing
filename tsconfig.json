@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "__tests__/HomePageHereSection.test.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "__tests__/HomePageHereSection.test.jsx", "__tests__/PropertyCard.test.js", "__tests__/Brand.test.js"],
   "exclude": ["node_modules"],
 }

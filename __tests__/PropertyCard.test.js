@@ -1,9 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import PropertyCard from "../components/Cards/PropertyCard";
-import { TProperty } from "@/types/TProperty";
 import "@testing-library/jest-dom";
 
-const mockProperty: TProperty = {
+const mockProperty = {
   id: "1",
   name: "Property Name",
   thumbnail: "/path/to/image.jpg",
