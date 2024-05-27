@@ -30,10 +30,12 @@ npm run dev
     docker-compose run nextjs npx prisma db push
 ```
 
-**3. Fake Data Seeder (5000 records per seed)**
+**3. Fake Data Seeder**
+Default 1000, Max seed value 100000
 
 ```sh
     docker-compose run nextjs npx prisma db seed
+    docker-compose run nextjs npx prisma db seed -- -c 10000
 ```
 
 ### Running the Project

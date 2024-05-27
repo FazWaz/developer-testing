@@ -1,11 +1,29 @@
 import { PrismaClient } from '@prisma/client'
 import { faker } from "@faker-js/faker"
+import { parseArgs } from 'node:util';
+
+const MAX_SEED_COUNT = 100000;
+const DEFAULT_SEED_COUNT = '10000';
+
+const options = {
+    seed_count: { type: 'string', short: "c" },
+} as const;
+
+const { values: { seed_count = DEFAULT_SEED_COUNT },
+} = parseArgs({options})
+
+const getSeedCount = parseInt(seed_count);
 
 const prisma = new PrismaClient();
 
 async function main() {
     // await prisma.property.deleteMany();
     // await prisma.gallery.deleteMany();
+    
+    if(getSeedCount > MAX_SEED_COUNT){
+        console.log('⚠️ Exceed the limit of maximum seed count. Maximum seed count is ' + MAX_SEED_COUNT);
+        process.exit(0);
+    }
 
     enum Type {
         SALE="SALE",
@@ -19,7 +37,7 @@ async function main() {
         OFFICE="OFFICE",
     }
 
-    for (let index = 0; index < 5000; index++) {
+    for (let index = 0; index < getSeedCount; index++) {
         const propertyType = faker.helpers.enumValue(PropertyType);
         const thumbnail = faker.image.urlLoremFlickr({ category: propertyType, width: 600, height: 600});
         await prisma.property.create({
