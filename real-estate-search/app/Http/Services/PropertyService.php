@@ -12,7 +12,7 @@ class PropertyService {
         $currentPage = $request->get('page', 1);
         $cacheKey = $this->generateCacheKey($request, $currentPage);
 
-        $propertiesData = Cache::remember($cacheKey, 10, function () use ($request) {
+        $propertiesData = Cache::remember($cacheKey, 3600, function () use ($request) {
 
             $query = Property::query(); 
 
