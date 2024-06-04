@@ -1,6 +1,8 @@
 import { useQuery, gql } from '@apollo/client';
 import { useState } from 'react';
-import Swiper from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';  // Correct import for Swiper styles
+import 'swiper/css/navigation';  // Import additional styles if needed, such as navigation
 
 const GET_PROPERTIES = gql`
   query GetProperties($type: String, $minPrice: Int, $maxPrice: Int, $bedrooms: Int, $minArea: Int, $maxArea: Int) {
@@ -61,15 +63,13 @@ export default function Home() {
             <p>{property.bedrooms} Bedrooms</p>
             <p>{property.area} sq ft</p>
             <p>{property.description}</p>
-            <div className="swiper-container">
-              <Swiper>
-                {property.images.map((image, index) => (
-                  <div key={index} className="swiper-slide">
-                    <img src={image} alt={`Property ${property.id}`} />
-                  </div>
-                ))}
-              </Swiper>
-            </div>
+            <Swiper>
+              {property.images.map((image, index) => (
+                <SwiperSlide key={index}>
+                  <img src={image} alt={`Property ${property.id}`} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         ))}
       </div>
