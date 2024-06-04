@@ -5,8 +5,8 @@ const { Sequelize, DataTypes } = require('sequelize');
 const app = express();
 const port = 4000;
 
-const sequelize = new Sequelize('real_estate', 'user', 'password', {
-  host: 'mysql',
+const sequelize = new Sequelize('real_estate', 'root', 'P@ssw0rd', {
+  host: '127.0.0.1',
   dialect: 'mysql',
 });
 
@@ -50,10 +50,14 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+async function startServer() {
+  const server = new ApolloServer({ typeDefs, resolvers });
+  await server.start();  // Ensure the Apollo server is started before applying middleware
+  server.applyMiddleware({ app });
 
-server.applyMiddleware({ app });
+  app.listen({ port }, () => {
+    console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`);
+  });
+}
 
-app.listen({ port }, () => {
-  console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`);
-});
+startServer();
