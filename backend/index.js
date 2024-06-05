@@ -1,14 +1,22 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 const { Sequelize, DataTypes } = require('sequelize');
+const dotenv = require('dotenv');
 
 const app = express();
-const port = 4000;
+dotenv.config();
+const port = process.env.PORT || 4000;
 
-const sequelize = new Sequelize('real_estate', 'root', 'P@ssw0rd', {
-  host: '127.0.0.1',
-  dialect: 'mysql',
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    dialect: 'mysql',
+  }
+);
 
 const Property = sequelize.define('Property', {
   type: DataTypes.STRING,

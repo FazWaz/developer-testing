@@ -1,10 +1,21 @@
+require('dotenv').config();
 const { Sequelize, DataTypes } = require("sequelize");
 const { faker } = require("@faker-js/faker");
 
-const sequelize = new Sequelize("real_estate", "root", "P@ssw0rd", {
-  host: "127.0.0.1",
-  dialect: "mysql",
-});
+// const sequelize = new Sequelize("real_estate", "root", "P@ssw0rd", {
+//   host: "127.0.0.1",
+//   dialect: "mysql",
+// });
+
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: 'mysql',
+  }
+);
 
 const Property = sequelize.define("Property", {
   type: DataTypes.STRING,

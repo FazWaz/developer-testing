@@ -2,17 +2,19 @@ version: '3.8'
 
 services:
   mysql:
-    image: mysql:8.3
+    image: mysql:8.0
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: P@ssw0rd
-      MYSQL_DATABASE: real_estate
-      MYSQL_USER: root
-      MYSQL_PASSWORD: P@ssw0rd
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
 
   graphql:
     build: ./backend
@@ -20,9 +22,11 @@ services:
     depends_on:
       - mysql
     environment:
-      DATABASE_URL: mysql://root:P@ssw0rd@mysql:3306/real_estate
+      DATABASE_URL: mysql://${DB_USER}:${DB_PASSWORD}@mysql:3306/${DB_NAME}
     ports:
       - "4000:4000"
+    networks:
+      - app-network
 
   nextjs:
     build: ./frontend
@@ -31,6 +35,11 @@ services:
       - graphql
     ports:
       - "3000:3000"
+    networks:
+      - app-network
 
 volumes:
   mysql-data:
+
+networks:
+  app-network:
