@@ -1,9 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
 import { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Pagination } from "swiper/modules";
 
 const GET_PROPERTIES = gql`
   query GetProperties(
