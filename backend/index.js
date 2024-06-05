@@ -33,7 +33,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    properties(type: String, minPrice: Int, maxPrice: Int, bedrooms: Int, minArea: Int, maxArea: Int): [Property]
+    properties(type: String, minPrice: Int, maxPrice: Int, bedrooms: Int, minArea: Int, maxArea: Int, limit: Int, offset: Int): [Property]
   }
 `;
 
@@ -45,7 +45,12 @@ const resolvers = {
       if (args.minPrice || args.maxPrice) where.price = { [Sequelize.Op.between]: [args.minPrice || 0, args.maxPrice || 10000000] };
       if (args.bedrooms) where.bedrooms = args.bedrooms;
       if (args.minArea || args.maxArea) where.area = { [Sequelize.Op.between]: [args.minArea || 0, args.maxArea || 100000] };
-      return await Property.findAll({ where });
+      
+      // Apply pagination
+      const limit = args.limit || 10; // Default limit to 10 if not provided
+      const offset = args.offset || 0;
+      
+      return await Property.findAll({ where, limit, offset });
     },
   },
 };
