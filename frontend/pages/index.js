@@ -1,5 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const GET_PROPERTIES = gql`
   query GetProperties(
@@ -22,14 +22,17 @@ const GET_PROPERTIES = gql`
       limit: $limit
       offset: $offset
     ) {
-      id
-      type
-      price
-      bedrooms
-      area
-      title
-      description
-      images
+      properties {
+        id
+        type
+        price
+        bedrooms
+        area
+        title
+        description
+        images
+      }
+      totalCount
     }
   }
 `;
@@ -38,28 +41,24 @@ export default function Home() {
   const [filters, setFilters] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-  // const { data, loading, error } = useQuery(GET_PROPERTIES, {
-  //   variables: filters,
-  // });
 
-  const { data, loading, error, fetchMore } = useQuery(GET_PROPERTIES, {
+  const { data, loading, error, fetchMore, refetch } = useQuery(GET_PROPERTIES, {
     variables: { ...filters, limit: itemsPerPage, offset: 0 },
+    notifyOnNetworkStatusChange: true,
   });
+
+  useEffect(() => {
+    refetch({ ...filters, limit: itemsPerPage, offset: (currentPage - 1) * itemsPerPage });
+  }, [filters, currentPage]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const handlePageChange = (newPage) => {
-    console.log("new page: " + newPage);
     setCurrentPage(newPage);
-    fetchMore({
-      variables: {
-        offset: (newPage - 1) * itemsPerPage,
-      },
-    });
   };
 
-  const totalPages = Math.ceil(data.properties.length / itemsPerPage);
+  const totalPages = Math.ceil(data.properties.totalCount / itemsPerPage);
 
   return (
     <div>
@@ -152,7 +151,7 @@ export default function Home() {
       <section>
         <div className="container">
           <div className="row">
-            {data.properties.map((property, propertyIndex) => (
+            {data.properties.properties.map((property, propertyIndex) => (
               <div key={property.id} className="col-md-4 mb-4">
                 <div className="card">
                   <div
@@ -218,9 +217,7 @@ export default function Home() {
 
           <nav>
             <ul className="pagination justify-content-center">
-              <li
-                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-              >
+              <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                 <button
                   className="page-link"
                   onClick={() => handlePageChange(currentPage - 1)}
@@ -231,9 +228,7 @@ export default function Home() {
               {Array.from({ length: totalPages }).map((_, index) => (
                 <li
                   key={index}
-                  className={`page-item ${
-                    currentPage === index + 1 ? "active" : ""
-                  }`}
+                  className={`page-item ${currentPage === index + 1 ? "active" : ""}`}
                 >
                   <button
                     className="page-link"
@@ -243,11 +238,7 @@ export default function Home() {
                   </button>
                 </li>
               ))}
-              <li
-                className={`page-item ${
-                  currentPage === totalPages ? "disabled" : ""
-                }`}
-              >
+              <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
                 <button
                   className="page-link"
                   onClick={() => handlePageChange(currentPage + 1)}
