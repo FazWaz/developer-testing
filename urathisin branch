@@ -1,0 +1,32 @@
+[33mcommit 00be1e7961913561c46e66718efe03bab4a84303[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32msurathisin[m[33m, [m[1;31morigin/surathisin[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Merge: a524cd0 337e5d8
+Author: surathisin <surathisin@yahoo.com>
+Date:   Wed Jun 12 16:19:36 2024 +0700
+
+    Resolve merge conflicts
+
+[33mcommit a524cd096b30a1c3578f5a245502a08285ccbdfa[m
+Author: surathisin <surathisin@yahoo.com>
+Date:   Wed Jun 12 14:41:54 2024 +0700
+
+    Initial commit: Set up Next.js project with MySQL and GraphQL for FazWaz Real Estate Search
+
+[33mcommit 0f1784753f24ef21b817e5e274ee0b13863b6d8b[m[33m ([m[1;32mmaster[m[33m)[m
+Author: surathisin <surathisin@yahoo.com>
+Date:   Mon Jun 10 16:08:00 2024 +0700
+
+    Initial commit from Create Next App
+
+[33mcommit 337e5d8f4e3940b7affa96788702107a165c58fe[m[33m ([m[1;31morigin/new-feature-branch[m[33m)[m
+Author: Benyarat Ruangdech <39816878+benyaratR@users.noreply.github.com>
+Date:   Tue May 28 19:59:49 2024 +0700
+
+    Update README.md
+    
+    Update instructions description
+
+[33mcommit 7bbf4c6643c2ea392d80894ee97ed9f6d8c1ed80[m
+Author: Pond <pond@fazwaz.com>
+Date:   Wed May 17 12:40:35 2023 +0700
+
+    Create README.md
