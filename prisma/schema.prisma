@@ -1,0 +1,24 @@
+model Property {
+  id          Int      @id @default(autoincrement())
+  listingType ListingType
+  projectName String
+  title       String
+  price       Int
+  bedrooms    Int
+  area        Int
+  description String
+  mainImageUrl String
+  gallery     Gallery[]
+}
+
+model Gallery {
+  id         Int    @id @default(autoincrement())
+  imageUrl   String
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+}
+
+enum ListingType {
+  SALE
+  RENT
+}
