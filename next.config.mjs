@@ -1,7 +1,4 @@
-module.exports = {
-    reactStrictMode: true,
-    api: {
-      bodyParser: false,
-    },
-  };
-  
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
+
+export default nextConfig;

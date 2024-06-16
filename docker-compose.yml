@@ -1,30 +1,30 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: real_estate
-      MYSQL_USER: shinkg
-      MYSQL_PASSWORD: password
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-
-  nextjs:
-    container_name: realestate_app_container
-    ports:
-      - "3000:3000"
+  app:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
     environment:
-      - DATABASE_URL=mysql://shinkg:password@mysql:3306/real_estate
+      - DATABASE_URL=mysql://root:toor1234@db:3306/REAL_ESTATE_APP
+      - GRAPHQL_URI=http://localhost:3000/api/graphql
     depends_on:
-      - mysql
+      - db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: toor1234
+      MYSQL_DATABASE: REAL_ESTATE_APP
+    volumes:
+      - db-data:/var/lib/mysql
 
 volumes:
-  mysql-data:
+  db-data:
