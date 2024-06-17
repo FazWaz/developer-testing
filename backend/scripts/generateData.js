@@ -1,34 +1,10 @@
 require('dotenv').config();
-const { Sequelize, DataTypes } = require("sequelize");
 const { faker } = require("@faker-js/faker");
-
-// const sequelize = new Sequelize("real_estate", "root", "P@ssw0rd", {
-//   host: "127.0.0.1",
-//   dialect: "mysql",
-// });
-
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-  }
-);
-
-const Property = sequelize.define("Property", {
-  type: DataTypes.STRING,
-  price: DataTypes.INTEGER,
-  bedrooms: DataTypes.INTEGER,
-  area: DataTypes.INTEGER,
-  title: DataTypes.STRING,
-  description: DataTypes.STRING,
-  images: DataTypes.JSON,
-});
+const sequelize = require('../config/database'); // Use the separate database configuration
+const Property = require('../models/property'); // Use the separate Property model
 
 const generateFakeProperties = async (count) => {
-    console.log(`Generating properties`);
+  console.log(`Generating ${count} properties...`);
   try {
     await sequelize.sync({ force: true });
 
