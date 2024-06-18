@@ -1,7 +1,6 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const dotenv = require('dotenv');
-const sequelize = require('./config/database');
 const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
 
