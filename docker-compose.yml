@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=mysql://root:toor1234@db:3306/REAL_ESTATE_APP
+      - GRAPHQL_URI=http://localhost:3000/api/graphql
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: toor1234
+      MYSQL_DATABASE: REAL_ESTATE_APP
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
